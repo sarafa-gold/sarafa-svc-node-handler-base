@@ -17,6 +17,8 @@ declare class Base extends EventEmitter {
     deleteServices(): void;
     stop(cb: (err?: Error | null, results?: any) => void): void;
     start(cb: (err?: Error | null, results?: any) => void): void;
+    _stop(cb: (err?: Error | null, results?: any) => void): void;
+    _start(cb: (err?: Error | null, results?: any) => void): void;
 }
 
 export default Base;
