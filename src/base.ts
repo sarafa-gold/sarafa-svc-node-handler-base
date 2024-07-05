@@ -30,8 +30,18 @@ class Base extends EventEmitter {
 
     }
 
+    _start(cb: (err?: Error | null, results?: any) => void) {
+    }
+
+    _stop(cb: (err?: Error | null, results?: any) => void) {
+
+    }
+
     stop(cb: (err?: Error | null, results?: any) => void) {
         const asyncSeries = []
+        asyncSeries.push((next: () => any) => {
+            this._stop(next)
+        })
         asyncSeries.push((next: () => any) => { this.deleteServices(); next() })
         asyncSeries.push((next: () => void) => {
             this.active = 0;
@@ -48,6 +58,9 @@ class Base extends EventEmitter {
             this.active = 1;
             next();
         });
+        asyncSeries.push((next: () => any) => {
+            this._start(next)
+        })
         async.series(asyncSeries, (err) => {
             if (err) {
                 console.trace()
