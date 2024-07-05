@@ -1,0 +1,23 @@
+{
+  "name": "sarafa-svc-node-handler-base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/async": "^3.2.24",
+    "@types/ejs": "^3.1.5",
+    "@types/node": "^20.14.9",
+    "@types/yargs": "^17.0.32",
+    "nodemon": "^3.1.4",
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "async": "^3.2.5"
+  }
+}
