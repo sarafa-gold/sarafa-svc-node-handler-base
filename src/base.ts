@@ -35,7 +35,11 @@ class Base extends EventEmitter {
     this.ctx = ctx
     this.active = 0
   }
-  init () {}
+  init () {
+    this._init()
+  }
+
+  _init () {}
 
   addServices () {
     this.servicesArgs.forEach(service =>
