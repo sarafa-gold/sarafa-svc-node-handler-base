@@ -1,6 +1,6 @@
 {
   "name": "sarafa-svc-node-handler-base",
-  "version": "0.0.1-beta",
+  "version": "1.0.1",
   "description": "",
   "main": "./dist/base.js",
   "types": "./types/base.d.ts",
