@@ -50,7 +50,7 @@ class Base extends EventEmitter {
   addService (name: string, library: string, opts: Object) {
     let svcImport = null
     try {
-      const { default: SvcClass }  = require(library)
+      const { default: SvcClass } = require(library)
       svcImport = SvcClass
     } catch (e) {
       console.log('Error occurrec in addService', e, name, library)
@@ -82,10 +82,15 @@ class Base extends EventEmitter {
     const asyncSeries = []
     asyncSeries.push((next: () => any) => {
       this._stop(next)
-    })
-    asyncSeries.push((next: () => any) => {
-      this.deleteServices()
       next()
+    })
+    asyncSeries.push((next: (err?: Error) => void) => {
+      try {
+        this.deleteServices()
+        next()
+      } catch (err) {
+        next(err as Error)
+      }
     })
     asyncSeries.push((next: () => void) => {
       this.active = 0
