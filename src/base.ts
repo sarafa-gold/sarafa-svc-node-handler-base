@@ -18,7 +18,12 @@ class Base extends EventEmitter {
   ctx: { root: string; env: 'production' | 'development'; worker: string }
   stopping: boolean = false
   active: number
-  servicesArgs: Array<{ opts: Object; name: string; library: string }> = []
+  servicesArgs: Array<{
+    opts: Object
+    name: string
+    library: string
+    delayStart: boolean
+  }> = []
   services: Services = {}
 
   constructor (
@@ -43,11 +48,16 @@ class Base extends EventEmitter {
 
   addServices () {
     this.servicesArgs.forEach(service =>
-      this.addService(service.name, service.library, service.opts)
+      this.addService(
+        service.name,
+        service.library,
+        service.opts,
+        service.delayStart
+      )
     )
   }
 
-  addService (name: string, library: string, opts: Object) {
+  addService (name: string, library: string, opts: Object, delayStart: boolean) {
     let svcImport = null
     try {
       const { default: SvcClass } = require(library)
@@ -60,7 +70,9 @@ class Base extends EventEmitter {
     }
     const service = new svcImport({ opts, name })
     if (!this.services[name]) {
-      service.start(() => console.log('Start service', name, library))
+      if (!delayStart) {
+        service.start(() => console.log('Start service', name, library))
+      }
       this.services[name] = service
     } else {
       console.log('Service already added', name, library)

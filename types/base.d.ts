@@ -11,7 +11,12 @@ declare class Base extends EventEmitter {
   ctx: { root: string; env: 'production' | 'development'; worker: string }
   stopping: boolean
   active: number
-  servicesArgs: Array<{ opts: Object; name: string; library: string }>
+  servicesArgs: Array<{
+    opts: Object
+    name: string
+    library: string
+    delayStart: boolean
+  }>
   services: Services
 
   constructor(
