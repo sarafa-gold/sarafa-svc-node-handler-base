@@ -50,7 +50,8 @@ class Base extends EventEmitter {
   addService (name: string, library: string, opts: Object) {
     let svcImport = null
     try {
-      svcImport = require(library)
+      const { default: SvcClass }  = require(library)
+      svcImport = SvcClass
     } catch (e) {
       console.log('Error occurrec in addService', e, name, library)
     }
